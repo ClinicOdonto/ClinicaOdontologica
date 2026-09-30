@@ -9,58 +9,42 @@ import jakarta.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "dentistas")
-public class Dentista {
+@Table(name = "recepcionistas")
+public class Recepcionista {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String cro;
-
     private String cpf;
 
     private String nome;
 
-    private String email;
-
     private String telefone;
 
-    private Integer idEspecialidade;
+    private String email;
 
-    private UUID idUsuario;
+    private UUID usuarioId;
 
-    public Dentista() {
+    public Recepcionista() {
     }
 
-    public Dentista(
-            String cro,
+    public Recepcionista(
             String cpf,
             String nome,
-            String email,
             String telefone,
-            Integer idEspecialidade,
-            UUID idUsuario
+            String email,
+            UUID usuarioId
     ) {
-        this.cro = cro;
         this.cpf = cpf;
         this.nome = nome;
-        this.email = email;
         this.telefone = telefone;
-        this.idEspecialidade = idEspecialidade;
-        this.idUsuario = idUsuario;
+        this.email = email;
+        this.usuarioId = usuarioId;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public String getCro() {
-        return cro;
-    }
-
-    public void setCro(String cro) {
-        this.cro = cro;
     }
 
     public String getCpf() {
@@ -79,14 +63,6 @@ public class Dentista {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -95,19 +71,19 @@ public class Dentista {
         this.telefone = telefone;
     }
 
-    public Integer getIdEspecialidade() {
-        return idEspecialidade;
+    public String getEmail() {
+        return email;
     }
 
-    public void setIdEspecialidade(Integer idEspecialidade) {
-        this.idEspecialidade = idEspecialidade;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public UUID getIdUsuario() {
-        return idUsuario;
+    public UUID getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setIdUsuario(UUID idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuarioId(UUID usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }
