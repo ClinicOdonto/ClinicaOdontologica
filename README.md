@@ -1,34 +1,44 @@
-# 🦷 ClinicOdonto
+# ClinicOdonto
 
-<p align="center">
-  <img src="docs/images/clinicodonto.png" alt="ClinicOdonto" width="500">
-</p>
-
-<h3 align="center">Cuidando de sorrisos, simplificando a gestão.</h3>
-
-<p align="center">
-  Sistema de gerenciamento para clínicas odontológicas, desenvolvido para facilitar a organização de pacientes, dentistas, consultas e prontuários.
-</p>
+>Sistema para a gestão completa de clínicas odontológicas: agenda, prontuário online, orçamentos, controle financeiro e pagamentos automatizados.
 
 ---
 
-## 📌 Sobre o projeto
+## Sobre o projeto
 
-O **ClinicOdonto** é um projeto acadêmico desenvolvido com o objetivo de auxiliar na gestão de uma clínica odontológica, centralizando informações e tornando os processos de atendimento mais organizados e eficientes.
+O **ClinicOdonto** Tem como objetivo gerenciar a rotina de consultas e centralizando as informações do paciente em um só lugar.
 
-## 🚀 Tecnologias
+**Problemas que o projeto resolve:**
 
-* Java
-* Spring Boot
-* PostgreSQL
-* Supabase
-* Maven
-* Git e GitHub
+- Automatização no agendamento de consultas
+- Facilidade de consulta de prontuário online
+- Controle financeiro com uma boa gestão de pagamento
 
-## 👥 Equipe
+---
 
-Projeto desenvolvido por uma equipe de 4 integrantes.
+##  Funcionalidades
 
-## 📄 Status
+### Clínico
+- **Prontuário eletrônico** com a evolução e anexos (fotos, exames)
+- **Plano de tratamento** Com dentes envolvidos, o que será feito nesse tratamento e o custo
+- **Receituário e atestados** com todos os remédios ou equipamentos que foram soliciatado para o paciente 
 
-🚧 Em desenvolvimento.
+
+### Administrativo
+- **Agenda** Consulta com o profissional e horário
+- **Cadastro de pacientes** com histórico completo
+- **Orçamentos e financeiro:** contas a receber/pagar e parcelamento
+- **Controle de estoque** de materiais e insumos
+
+### Plataforma
+-  Autenticação com perfis e permissões (Administrador, Dentista, Recepção e paciente)
+
+---
+###  Autores
+
+**Isabel** — Desenvolvedor(a)
+---
+**Kamilly** — Desenvolvedor(a)
+---
+**Júlia** — Desenvolvedor(a)
+---
