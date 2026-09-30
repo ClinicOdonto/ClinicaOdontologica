@@ -37,8 +37,7 @@ O **ClinicOdonto** Tem como objetivo gerenciar a rotina de consultas e centraliz
 ###  Autores
 
 **Isabel** — Desenvolvedor(a)
----
+
 **Kamilly** — Desenvolvedor(a)
----
+
 **Júlia** — Desenvolvedor(a)
----
