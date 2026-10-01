@@ -1,35 +1,35 @@
 package com.example.ClinicaOdontologica.controller;
 
-import com.example.ClinicaOdontologica.entity.CategoriaEquip;
+import com.example.ClinicaOdontologica.model.CategoriaEquip;
+import com.example.ClinicaOdontologica.repository.EquipamentoRepository;
 import com.example.ClinicaOdontologica.service.CategoriaEquipService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias-equipamentos")
 public class CategoriaEquipController {
 
-    private final CategoriaEquipService service;
-
-    public CategoriaEquipController(CategoriaEquipService service) {
-        this.service = service;
-    }
+   @Autowired
+   CategoriaEquipService Equipeservice;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoriaEquip criar(@RequestBody CategoriaEquip categoriaEquip) {
-        return service.criar(categoriaEquip);
+        return Equipeservice.criarCategoria(categoriaEquip);
     }
 
     @GetMapping
     public List<CategoriaEquip> listar() {
-        return service.listar();
+        return Equipeservice.BuscarCategoria();
     }
 
     @GetMapping("/{id}")
     public CategoriaEquip buscarPorId(@PathVariable Integer id) {
-        return service.buscarPorId(id);
+        return (Equipeservice.BuscarCategoriaId(id));
     }
 }

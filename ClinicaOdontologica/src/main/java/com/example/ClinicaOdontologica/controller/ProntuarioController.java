@@ -1,6 +1,6 @@
 package com.example.ClinicaOdontologica.controller;
 
-import com.example.ClinicaOdontologica.entity.Prontuario;
+import com.example.ClinicaOdontologica.model.Prontuario;
 import com.example.ClinicaOdontologica.service.ProntuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

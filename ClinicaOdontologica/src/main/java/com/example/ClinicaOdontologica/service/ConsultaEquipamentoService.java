@@ -1,7 +1,7 @@
 package com.example.ClinicaOdontologica.service;
 
-import com.example.ClinicaOdontologica.entity.ConsultaEquipamento;
-import com.example.ClinicaOdontologica.entity.ConsultaEquipamentoId;
+import com.example.ClinicaOdontologica.model.ConsultaEquipamento;
+import com.example.ClinicaOdontologica.model.ConsultaEquipamentoId;
 import com.example.ClinicaOdontologica.repository.ConsultaEquipamentoRepository;
 import org.springframework.stereotype.Service;
 

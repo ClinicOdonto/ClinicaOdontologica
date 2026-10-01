@@ -1,4 +1,4 @@
-package com.example.ClinicaOdontologica.entity;
+package com.example.ClinicaOdontologica.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

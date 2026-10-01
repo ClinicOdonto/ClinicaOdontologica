@@ -1,6 +1,6 @@
 package com.example.ClinicaOdontologica.service;
 
-import com.example.ClinicaOdontologica.entity.Especialidade;
+import com.example.ClinicaOdontologica.model.Especialidade;
 import com.example.ClinicaOdontologica.repository.EspecialidadeRepository;
 import org.springframework.stereotype.Service;
 

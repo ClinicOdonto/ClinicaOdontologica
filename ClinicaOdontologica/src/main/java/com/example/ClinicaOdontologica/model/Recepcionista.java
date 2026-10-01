@@ -1,4 +1,4 @@
-package com.example.ClinicaOdontologica.entity;
+package com.example.ClinicaOdontologica.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,12 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "pacientes")
-public class Paciente {
+@Table(name = "recepcionistas")
+public class Recepcionista {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,35 +20,27 @@ public class Paciente {
 
     private String nome;
 
-    private LocalDate dataNasc;
-
     private String telefone;
 
     private String email;
 
-    private String endereco;
+    private UUID usuarioId;
 
-    private UUID idPaciente;
-
-    public Paciente() {
+    public Recepcionista() {
     }
 
-    public Paciente(
+    public Recepcionista(
             String cpf,
             String nome,
-            LocalDate dataNasc,
             String telefone,
             String email,
-            String endereco,
-            UUID idPaciente
+            UUID usuarioId
     ) {
         this.cpf = cpf;
         this.nome = nome;
-        this.dataNasc = dataNasc;
         this.telefone = telefone;
         this.email = email;
-        this.endereco = endereco;
-        this.idPaciente = idPaciente;
+        this.usuarioId = usuarioId;
     }
 
     public Integer getId() {
@@ -72,14 +63,6 @@ public class Paciente {
         this.nome = nome;
     }
 
-    public LocalDate getDataNasc() {
-        return dataNasc;
-    }
-
-    public void setDataNasc(LocalDate dataNasc) {
-        this.dataNasc = dataNasc;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -96,19 +79,11 @@ public class Paciente {
         this.email = email;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public UUID getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public UUID getIdPaciente() {
-        return idPaciente;
-    }
-
-    public void setIdPaciente(UUID idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setUsuarioId(UUID usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }
