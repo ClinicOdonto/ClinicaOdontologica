@@ -22,7 +22,6 @@ public class CategoriaEquipService {
     public CategoriaEquip BuscarCategoriaId(Integer id) {
         return repository.findById(id) .orElseThrow(() -> new RuntimeException("Categoria não encontrada")); }
 
-    @Cacheable(value = "CategoriaEquipe", key = "#id")
     public List<CategoriaEquip> BuscarCategoria(){
         return repository.findAll();
     }
