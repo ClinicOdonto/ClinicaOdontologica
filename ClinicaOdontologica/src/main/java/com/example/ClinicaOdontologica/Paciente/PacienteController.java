@@ -23,7 +23,7 @@ public class PacienteController {
     }
 
     @GetMapping
-    public List<Paciente> listar(PacienteGetDTO dto) {
+    public List<PacienteGetDTO> listar(PacienteGetDTO dto) {
         return service.listar(dto) ;
     }
 
