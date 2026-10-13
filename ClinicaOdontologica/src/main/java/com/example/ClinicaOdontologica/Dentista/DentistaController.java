@@ -1,5 +1,6 @@
 package com.example.ClinicaOdontologica.Dentista;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,8 @@ import java.util.UUID;
 @RequestMapping("/dentistas")
 public class DentistaController {
 
-    private final DentistaService service;
+    @Autowired
+    DentistaService service;
 
     public DentistaController(DentistaService service) {
         this.service = service;
@@ -18,7 +20,7 @@ public class DentistaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Dentista criar(@RequestBody Dentista dentista) {
+    public Dentista criar(@RequestBody DentistaDtoCreate dentista) {
         return service.criar(dentista);
     }
 
