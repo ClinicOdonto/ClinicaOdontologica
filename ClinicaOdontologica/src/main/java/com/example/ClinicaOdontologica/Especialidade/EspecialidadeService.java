@@ -1,6 +1,7 @@
 package com.example.ClinicaOdontologica.Especialidade;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,12 @@ public class EspecialidadeService {
         this.repository = repository;
     }
 
+    @CacheEvict (value = "EspecialidadesLista", allEntries = true)
     public Especialidade criar(Especialidade especialidade) {
         return repository.save(especialidade);
     }
 
+    @Cacheable(value = "EspecialidadesLista")
     public List<Especialidade> listar() {
         return repository.findAll();
     }
