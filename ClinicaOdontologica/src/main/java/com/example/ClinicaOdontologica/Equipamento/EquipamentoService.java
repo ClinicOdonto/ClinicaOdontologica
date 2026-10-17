@@ -1,5 +1,6 @@
 package com.example.ClinicaOdontologica.Equipamento;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class EquipamentoService {
         return repository.findAll();
     }
 
+    @Cacheable(value = "Equipamento", key = "#id")
     public Equipamento buscarPorId(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Equipamento não encontrado"));
