@@ -2,6 +2,7 @@ package com.example.ClinicaOdontologica.Categoria;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +14,15 @@ public class CategoriaEquipService {
     @Autowired
     CategoriaEquipRepository repository;
 
+    @CacheEvict(
+        value = "CategoriasEquipamentosLista",
+       key = "T(org.springframework.cache.interceptor.SimpleKey).EMPTY")
+
     public CategoriaEquip criar(CategoriaEquip categoriaEquip) {
         return repository.save(categoriaEquip);
     }
 
+    @Cacheable(value = "CategoriasEquipamentosLista")
     public List<CategoriaEquip> listar() {
         return repository.findAll();
     }
@@ -24,6 +30,8 @@ public class CategoriaEquipService {
     @Cacheable(value = "CategoriaEquipe", key = "#id")
     public CategoriaEquip buscarPorId(UUID id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria de equipamento não encontrada"));
+                .orElseThrow(() -> new RuntimeException(
+                        "Categoria de equipamento não encontrada"
+                ));
     }
 }
