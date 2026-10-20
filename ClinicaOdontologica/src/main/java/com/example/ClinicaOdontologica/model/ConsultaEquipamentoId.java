@@ -4,35 +4,38 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 @Embeddable
 public class ConsultaEquipamentoId implements Serializable {
 
-    private Integer idConsulta;
+    private UUID idConsulta;
 
-    private Integer idEquipamento;
+    private UUID idEquipamento;
 
     public ConsultaEquipamentoId() {
     }
 
-    public ConsultaEquipamentoId(Integer idConsulta, Integer idEquipamento) {
+    public ConsultaEquipamentoId(UUID idConsulta, UUID idEquipamento) {
         this.idConsulta = idConsulta;
         this.idEquipamento = idEquipamento;
     }
 
-    public Integer getIdConsulta() {
+    public UUID getIdConsulta() {
         return idConsulta;
     }
 
-    public void setIdConsulta(Integer idConsulta) {
+    public void setIdConsulta(UUID idConsulta) {
+
         this.idConsulta = idConsulta;
     }
 
-    public Integer getIdEquipamento() {
+    public UUID getIdEquipamento() {
         return idEquipamento;
     }
 
-    public void setIdEquipamento(Integer idEquipamento) {
+    public void setIdEquipamento(UUID idEquipamento) {
+
         this.idEquipamento = idEquipamento;
     }
 

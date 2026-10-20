@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/consultas-equipamentos")
@@ -33,8 +34,8 @@ public class ConsultaEquipamentoController {
 
     @GetMapping("/{idConsulta}/{idEquipamento}")
     public ConsultaEquipamento buscarPorId(
-            @PathVariable Integer idConsulta,
-            @PathVariable Integer idEquipamento) {
+            @PathVariable UUID idConsulta,
+            @PathVariable UUID idEquipamento) {
 
         ConsultaEquipamentoId id =
                 new ConsultaEquipamentoId(idConsulta, idEquipamento);

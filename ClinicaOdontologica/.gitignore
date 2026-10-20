@@ -3,6 +3,10 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.env
+
+/src/main/resources/application.properties
+/src/main/resources/db.migration
 
 .env
 
@@ -33,3 +37,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
