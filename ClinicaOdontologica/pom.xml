@@ -83,6 +83,14 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- AWS SDK para integração com o Supabase Storage via S3 -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>2.35.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
