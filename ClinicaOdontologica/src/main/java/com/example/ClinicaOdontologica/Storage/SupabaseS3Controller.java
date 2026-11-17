@@ -1,12 +1,11 @@
-package com.example.ClinicaOdontologica.controller;
+package com.example.ClinicaOdontologica.Storage;
 
-import com.example.ClinicaOdontologica.service.SupabaseS3Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/storage")
+@RequestMapping("/api/documentos/upload")
 public class SupabaseS3Controller {
 
     private final SupabaseS3Service supabaseS3Service;

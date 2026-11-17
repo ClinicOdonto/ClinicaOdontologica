@@ -1,38 +1,51 @@
+
 package com.example.ClinicaOdontologica.Documento;
 
 import com.example.ClinicaOdontologica.Paciente.Paciente;
 import com.example.ClinicaOdontologica.Paciente.PacienteRepository;
 import com.example.ClinicaOdontologica.Prontuario.Prontuario;
 import com.example.ClinicaOdontologica.Prontuario.ProntuarioRepository;
-import com.example.ClinicaOdontologica.service.SupabaseS3Service;
+import com.example.ClinicaOdontologica.Storage.SupabaseS3Service;
+import com.example.ClinicaOdontologica.Storage.ArmazenamentoService;
+
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import java.time.LocalDateTime;
-import java.io.IOException;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class ServiceDocumento {
 
+    private static final long TAMANHO_MAXIMO = 10 * 1024 * 1024;
+
+    private static final Set<String> TIPOS_PERMITIDOS = Set.of(
+            "application/pdf",
+            "image/jpeg",
+            "image/png"
+    );
+
     private final RepositoryDocumento repositoryDocumento;
     private final PacienteRepository repositoryPaciente;
     private final ProntuarioRepository repositoryProntuario;
-    private final SupabaseS3Service supabaseS3Service;
+    private final ArmazenamentoService armazenamentoService;
 
     public ServiceDocumento(
             RepositoryDocumento repositoryDocumento,
             PacienteRepository repositoryPaciente,
             ProntuarioRepository repositoryProntuario,
-            SupabaseS3Service supabaseS3Service
+            ArmazenamentoService armazenamentoService
     ) {
         this.repositoryDocumento = repositoryDocumento;
         this.repositoryPaciente = repositoryPaciente;
         this.repositoryProntuario = repositoryProntuario;
-        this.supabaseS3Service = supabaseS3Service;
+        this.armazenamentoService= armazenamentoService;
     }
 
+    @Transactional
     public Documento salvarDocumento(
             UUID idPaciente,
             UUID idProntuario,
@@ -42,39 +55,106 @@ public class ServiceDocumento {
             MultipartFile arquivo
     ) throws IOException {
 
-        // 1. Validar paciente e prontuário
-        validarPacienteEProntuario(idPaciente, idProntuario);
-
-        // 2. Enviar arquivo para o Supabase
-        String chaveStorage = supabaseS3Service.enviarArquivo(arquivo);
-
-        // 3. Criar registro do documento
-        Documento documento = new Documento(
+        validarDados(
                 idPaciente,
                 idProntuario,
-                dente,
                 tipoDocumento,
-                descricao,
-                arquivo.getOriginalFilename(),
-                chaveStorage,
-                LocalDateTime.now()
+                arquivo
         );
 
-        // 4. Salvar informações no PostgreSQL
-        return repositoryDocumento.save(documento);
+        validarPacienteEProntuario(idPaciente, idProntuario);
+
+        String chaveStorage = armazenamentoService.enviarArquivo(arquivo);
+
+        try {
+            Documento documento = new Documento(
+                    idPaciente,
+                    idProntuario,
+                    dente,
+                    tipoDocumento,
+                    descricao,
+                    arquivo.getOriginalFilename(),
+                    chaveStorage,
+                    LocalDateTime.now()
+            );
+
+            // Força o envio do insert ao banco dentro deste bloco.
+            return repositoryDocumento.saveAndFlush(documento);
+
+        } catch (RuntimeException e) {
+
+            try {
+                armazenamentoService.excluirArquivo(chaveStorage);
+            } catch (RuntimeException erroExclusao) {
+                e.addSuppressed(erroExclusao);
+            }
+
+            throw e;
+        }
     }
 
-    public void validarPacienteEProntuario(UUID idPaciente, UUID idProntuario) {
+    private void validarDados(
+            UUID idPaciente,
+            UUID idProntuario,
+            String tipoDocumento,
+            MultipartFile arquivo
+    ) {
+
+        if (idPaciente == null || idProntuario == null) {
+            throw new IllegalArgumentException(
+                    "Paciente e prontuário são obrigatórios."
+            );
+        }
+
+        if (tipoDocumento == null || tipoDocumento.isBlank()) {
+            throw new IllegalArgumentException(
+                    "O tipo do documento é obrigatório."
+            );
+        }
+
+        if (arquivo == null || arquivo.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Selecione um arquivo."
+            );
+        }
+
+        if (arquivo.getSize() > TAMANHO_MAXIMO) {
+            throw new IllegalArgumentException(
+                    "O arquivo não pode ultrapassar 10 MB."
+            );
+        }
+
+        String contentType = arquivo.getContentType();
+
+        if (contentType == null ||
+                !TIPOS_PERMITIDOS.contains(contentType.toLowerCase())) {
+
+            throw new IllegalArgumentException(
+                    "Tipo de arquivo não permitido. Envie PDF, JPEG ou PNG."
+            );
+        }
+    }
+
+    public void validarPacienteEProntuario(
+            UUID idPaciente,
+            UUID idProntuario
+    ) {
 
         Paciente paciente = repositoryPaciente.findById(idPaciente)
-                .orElseThrow(() -> new RuntimeException("Paciente não encontrado."));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Paciente não encontrado."
+                ));
 
         Prontuario prontuario = repositoryProntuario.findById(idProntuario)
-                .orElseThrow(() -> new RuntimeException("Prontuário não encontrado."));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Prontuário não encontrado."
+                ));
 
-        if (!prontuario.getIdPaciente().equals(paciente.getId())) {
-            throw new RuntimeException(
-                    "Este prontuário não pertence ao paciente informado."
+        if (prontuario.getIdPaciente() == null ||
+                !prontuario.getIdPaciente().equals(paciente.getId())) {
+
+            throw new IllegalArgumentException(
+                    "O prontuário não pertence ao paciente informado."
             );
         }
     }

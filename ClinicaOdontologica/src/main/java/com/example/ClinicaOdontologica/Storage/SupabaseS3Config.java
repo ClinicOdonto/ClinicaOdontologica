@@ -1,6 +1,6 @@
 // DOCUMENTO ADICIONADO PARA TESTA O S3
 
-package com.example.ClinicaOdontologica.config;
+package com.example.ClinicaOdontologica.Storage;
 
 import java.net.URI;
 

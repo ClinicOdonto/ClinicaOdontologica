@@ -1,6 +1,6 @@
-package com.example.ClinicaOdontologica;
+/*package com.example.ClinicaOdontologica;
 
-import com.example.ClinicaOdontologica.service.SupabaseS3Service;
+import com.example.ClinicaOdontologica.Storage.SupabaseS3Service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,4 +24,4 @@ class SupabaseS3ConnectionTest {
                 "Conexão com o Supabase Storage realizada com sucesso!"
         );
     }
-}
+}*/

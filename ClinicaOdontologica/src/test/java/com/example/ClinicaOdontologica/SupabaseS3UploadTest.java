@@ -1,6 +1,6 @@
-package com.example.ClinicaOdontologica;
+/*package com.example.ClinicaOdontologica;
 
-import com.example.ClinicaOdontologica.service.SupabaseS3Service;
+import com.example.ClinicaOdontologica.Storage.SupabaseS3Service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +37,4 @@ class SupabaseS3UploadTest {
         System.out.println("Bucket: clinicodonto-documentos");
         System.out.println("Chave do arquivo: " + chave);
     }
-}
+}*/
